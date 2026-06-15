@@ -1,0 +1,115 @@
+---
+---
+<section id="inicio" class="hero">
+  <div class="hero-overlay"></div>
+  <div class="container hero-content">
+    <h1>ESTILO, TRADICIÓN Y <span class="text-acento">CLASE</span></h1>
+    <p>No solo es un corte de cabello, es una experiencia de cuidado masculino premium.</p>
+    <div class="botones">
+      <a href="#servicios" class="btn-secundario">Ver Servicios</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    height: 100vh;
+    background-image: url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&q=80&w=1920');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Parallax effect */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .hero-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* Gradiente radial más dramático */
+    background: radial-gradient(circle at center, rgba(10, 10, 10, 0.4) 0%, rgba(10, 10, 10, 0.9) 100%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 1rem;
+    animation: fadeInUp 1s ease-out forwards;
+  }
+  .hero-content h1 {
+    font-size: 4.5rem;
+    letter-spacing: 4px;
+    margin-bottom: 1.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    text-shadow: 2px 4px 10px rgba(0,0,0,0.5);
+  }
+  .text-acento {
+    color: var(--acento);
+    font-style: italic;
+    animation: pulseGlow 2s infinite alternate;
+  }
+  .hero-content p {
+    font-size: 1.25rem;
+    color: var(--texto-claro);
+    max-width: 650px;
+    margin: 0 auto 3rem auto;
+    font-weight: 300;
+    text-shadow: 1px 2px 5px rgba(0,0,0,0.8);
+  }
+  .botones {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+  .btn-principal, .btn-secundario {
+    padding: 1.2rem 2.5rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    border-radius: 2px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .btn-principal {
+    background-color: var(--acento);
+    color: #000;
+    box-shadow: 0 0 15px rgba(230, 194, 0, 0.3);
+  }
+  .btn-principal:hover {
+    background-color: var(--acento-hover);
+    box-shadow: 0 0 25px rgba(230, 194, 0, 0.6);
+    transform: translateY(-3px);
+  }
+  .btn-secundario {
+    background-color: transparent;
+    border: 1px solid var(--texto-claro);
+    color: var(--texto-claro);
+  }
+  .btn-secundario:hover {
+    background-color: var(--texto-claro);
+    color: #000;
+    transform: translateY(-3px);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-content h1 {
+      font-size: 3rem;
+    }
+    .botones {
+      flex-direction: column;
+    }
+  }
+</style>

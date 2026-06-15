@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/navbar.astro';
+import Footer from '../components/footer.astro';
+import ContactoSection from '../components/contacto.astro';
+---
+
+<Layout title="Contacto | DEMO The Barber Shop">
+	<Navbar />
+	<main class="page-container">
+        <section class="contacto-hero">
+            <div class="container">
+                <h1 class="page-title">Contácta<span>nos</span></h1>
+                <p>Agenda tu cita o déjanos un mensaje (DEMO).</p>
+            </div>
+        </section>
+
+        <!-- Reutilizamos el componente que ahora tendrá formulario -->
+        <ContactoSection />
+
+	</main>
+	<Footer />
+</Layout>
+
+<style>
+    .page-container {
+        padding-top: 80px;
+    }
+    .contacto-hero {
+        background-color: var(--bg-secundario);
+        text-align: center;
+        padding: 6rem 1rem 2rem 1rem;
+    }
+    .page-title {
+        font-size: 3.5rem;
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: 800;
+        margin-bottom: 1rem;
+    }
+    .page-title span {
+        color: var(--acento);
+    }
+</style>

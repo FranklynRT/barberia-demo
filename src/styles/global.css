@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Times New Roman", Times, serif;
+  --font-serif: "Times New Roman", Times, serif;
+  --font-mono: "Times New Roman", Times, serif;
+}
+
+/* Responsive base sizing: scales typography/layout smoothly between devices */
+:root {
+  /* base font-size: clamp(min, preferred, max) */
+  font-size: clamp(14px, 1.1vw + 12px, 18px);
+}
+
+html, body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Make main container responsive and centered across pages */
+.container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width: 100%;
+}
+
+/* Ensure media elements scale properly */
+img, picture, video, iframe {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Slightly reduce overall zoom on very large screens */
+@media (min-width: 1600px) {
+  :root { font-size: 17px; }
+}
+
+@media (max-width: 1024px) {
+  :root { font-size: 15px; }
+}
+
+@media (max-width: 768px) {
+  :root { font-size: 14px; }
+  section { padding: 3.5rem 1rem; }
+}
+
+/* Improve readability on small screens */
+body {
+  line-height: 1.6;
+}

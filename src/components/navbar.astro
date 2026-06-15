@@ -1,0 +1,273 @@
+---
+---
+<header class="navbar">
+  <div class="container nav-container">
+    <a href="/" class="logo">THE<span>BARBER</span></a>
+    
+    <!-- Menú desktop -->
+    <nav class="menu">
+      <a href="/">Inicio</a>
+      <a href="/nosotros">Nosotros</a>
+      <a href="/servicios">Servicios</a>
+      <a href="/contacto">Contacto</a>
+    </nav>
+    
+    <!-- Botón hamburguesa para móvil/tablet -->
+    <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Sidebar para móvil/tablet -->
+<aside class="sidebar" aria-hidden="true">
+  <nav class="sidebar-menu">
+    <a href="/" class="sidebar-link">Inicio</a>
+    <a href="/nosotros" class="sidebar-link">Nosotros</a>
+    <a href="/servicios" class="sidebar-link">Servicios</a>
+    <a href="/contacto" class="sidebar-link">Contacto</a>
+  </nav>
+</aside>
+
+<div class="sidebar-backdrop" aria-hidden="true"></div>
+
+<script data-astro-rerun-on-nav>
+  const initNavbar = () => {
+    const toggle = document.querySelector('.menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    const backdrop = document.querySelector('.sidebar-backdrop');
+    const links = document.querySelectorAll('.sidebar-link');
+
+    if (!toggle || !sidebar || !backdrop) return;
+
+    function closeSidebar() {
+      toggle.setAttribute('aria-expanded', 'false');
+      sidebar.setAttribute('aria-hidden', 'true');
+      backdrop.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = 'auto';
+    }
+
+    function openSidebar() {
+      toggle.setAttribute('aria-expanded', 'true');
+      sidebar.setAttribute('aria-hidden', 'false');
+      backdrop.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Limpiar listeners anteriores si existen
+    toggle.onclick = null;
+    backdrop.onclick = null;
+    links.forEach(link => link.onclick = null);
+
+    toggle.addEventListener('click', () => {
+      if (toggle.getAttribute('aria-expanded') === 'false') {
+        openSidebar();
+      } else {
+        closeSidebar();
+      }
+    });
+
+    backdrop.addEventListener('click', closeSidebar);
+
+    links.forEach(link => {
+      link.addEventListener('click', closeSidebar);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && sidebar.getAttribute('aria-hidden') === 'false') {
+        closeSidebar();
+      }
+    }, { once: false });
+  };
+
+  // Ejecutar cuando el DOM está listo
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNavbar);
+  } else {
+    initNavbar();
+  }
+
+  // Para Astro Transitions
+  document.addEventListener('astro:after-swap', initNavbar);
+</script>
+
+<style>
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* Glassmorphism Effect */
+    background: rgba(10, 10, 10, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    z-index: 1000;
+    transition: all 0.3s ease;
+  }
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 1rem;
+  }
+  .logo {
+    font-weight: 800;
+    font-size: 1.8rem;
+    text-decoration: none;
+    color: var(--texto-claro);
+    letter-spacing: 2px;
+  }
+  .logo span {
+    color: var(--acento);
+  }
+  .menu {
+    display: flex;
+    gap: 0;
+  }
+  .menu a {
+    color: var(--texto-claro);
+    text-decoration: none;
+    margin-left: 2.5rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    padding-bottom: 5px;
+    display: inline-block;
+    transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+  }
+  /* Animación sutil de subrayado */
+  .menu a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--acento);
+    transition: width 0.3s ease;
+  }
+  .menu a:hover::after {
+    width: 100%;
+  }
+  .menu a:hover {
+    color: var(--acento);
+    transform: translateY(-2px);
+    text-shadow: 0 0 10px rgba(230,194,0,0.6);
+  }
+
+  /* Hamburger Menu Button */
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--acento);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  .menu-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: rotate(45deg) translate(10px, 10px);
+  }
+  .menu-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: rotate(-45deg) translate(8px, -7px);
+  }
+
+  /* Sidebar */
+  .sidebar {
+    position: fixed;
+    left: -300px;
+    top: 70px;
+    width: 280px;
+    max-height: calc(100vh - 70px);
+    background: linear-gradient(180deg, #111111 0%, #0a0a0a 100%);
+    border-right: 1px solid rgba(230, 194, 0, 0.2);
+    z-index: 999;
+    transition: left 0.3s ease;
+    overflow-y: auto;
+  }
+  .sidebar[aria-hidden="false"] {
+    left: 0;
+  }
+  .sidebar-menu {
+    display: flex;
+    flex-direction: column;
+  }
+  .sidebar-link {
+    padding: 1.2rem 1.5rem;
+    color: var(--texto-claro);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    display: block;
+  }
+  .sidebar-link:hover {
+    background-color: rgba(230, 194, 0, 0.1);
+    color: var(--acento);
+    padding-left: 2rem;
+  }
+
+  /* Sidebar Backdrop */
+  .sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 998;
+  }
+  .sidebar-backdrop[aria-hidden="false"] {
+    display: block;
+  }
+
+  /* Mobile & Tablet */
+  @media (max-width: 1024px) {
+    .menu {
+      display: none;
+    }
+    .menu-toggle {
+      display: flex;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .logo {
+      font-size: 1.4rem;
+    }
+    .sidebar {
+      width: 250px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .nav-container {
+      padding: 1rem;
+    }
+    .logo {
+      font-size: 1.2rem;
+    }
+    .sidebar {
+      width: 100vw;
+      left: -100vw;
+    }
+  }
+</style>

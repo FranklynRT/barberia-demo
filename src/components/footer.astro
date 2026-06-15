@@ -1,0 +1,80 @@
+---
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="container footer-content">
+    <div class="brand">
+      <h3>THE<span class="text-acento">BARBER</span></h3>
+      <p>Estilo y tradición desde siempre.</p>
+    </div>
+    <div class="copy">
+      <p>&copy; {year} THE BARBER. Todos los derechos reservados.</p>
+    </div>
+    <div class="redes flex items-center justify-center">
+      <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block mr-1"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        Instagram
+      </a>
+      <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block mr-1"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+        Facebook
+      </a>
+      <a href="https://tiktok.com" target="_blank" aria-label="TikTok">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block mr-1"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5v3a8 8 0 0 1-8-8H7v12Z"></path></svg>
+        TikTok
+      </a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--bg-principal);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 3rem 1rem;
+    margin-top: auto;
+  }
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+    color: var(--texto-mutado);
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  .brand h3 {
+    font-size: 1.5rem;
+    color: var(--texto-claro);
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+  }
+  .text-acento {
+    color: var(--acento);
+  }
+  .brand p {
+    font-size: 0.85rem;
+  }
+  @media (max-width: 768px) {
+    .footer-content { 
+      flex-direction: column; 
+      text-align: center; 
+    }
+    .redes a {
+      margin: 0 0.8rem;
+    }
+  }
+  .redes a {
+    color: var(--texto-claro);
+    text-decoration: none;
+    margin-left: 1.5rem;
+    transition: color 0.3s;
+    font-family: 'Times New Roman', Times, serif;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+  }
+  .redes a:hover {
+    color: var(--acento);
+  }
+</style>

@@ -1,0 +1,172 @@
+---
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+
+interface Props { 
+	title: string; 
+}
+
+const { title } = Astro.props; 
+---
+
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="description" content="Barbería premium. Cortes de cabello, diseño de barba y el mejor estilo."/>
+		<meta name="viewport" content="width=device-width"/>
+		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+		<link rel="alternate icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" href="/favicon.ico" />
+		<ClientRouter />
+		<!-- Tipografía Clásica / Luxury: Times New Roman -->
+		<title>{title}</title>
+	</head>
+	<body>
+		<div class="demo-badge">VERSIÓN DEMO</div>
+		<slot /> 
+		<!-- Botón de agendar visible en la esquina inferior derecha. Cambia el número por tu WhatsApp (sin + ni espacios) -->
+		<a href="https://wa.me/521234567890?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20cita" 
+		   class="whatsapp-float whatsapp-cta" 
+		   target="_blank" 
+		   rel="noopener noreferrer">
+			<svg class="whatsapp-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+				<path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.88-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.347-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.876 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+			</svg>
+			<span>AGENDAR AHORA</span>
+		</a>
+	</body>
+	<style is:global>
+		:root {
+			--bg-principal: #0a0a0a;
+			--bg-secundario: #111111;
+			--bg-terciario: #1a1a1a;
+			--acento: #e6c200; /* Dorado premium */
+			--acento-hover: #ffd700;
+			--texto-claro: #fcfcfc;
+			--texto-mutado: #a1a1aa;
+			--border-color: rgba(230, 194, 0, 0.15);
+		}
+		
+		::selection {
+			background-color: var(--acento);
+			color: #000;
+		}
+
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+		html {
+			font-family: 'Times New Roman', Times, serif;
+			background-color: var(--bg-principal);
+			color: var(--texto-claro);
+			scroll-behavior: smooth;
+		}
+
+		body { 
+			min-height: 100vh;
+			display: flex;
+			flex-direction: column;
+		}
+
+		h1, h2, h3, h4, h5, h6, .logo {
+			font-family: 'Times New Roman', Times, serif;
+			letter-spacing: 1px;
+		}
+
+		section {
+			padding: 6rem 1rem;
+		}
+
+		.container { 
+			max-width: 1200px;
+			margin: 0 auto;
+			width: 100%;
+		}
+
+		.titulo-seccion {
+			font-size: 3rem;
+			text-align: center; 
+			margin-bottom: 4rem;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			font-weight: 700;
+		}
+
+		.titulo-seccion span {
+			color: var(--acento);
+			text-shadow: 0 0 10px rgba(230, 194, 0, 0.5);
+			animation: pulseGlow 2s infinite alternate;
+			font-style: italic;
+		}
+
+		@keyframes pulseGlow {
+			0% {
+				text-shadow: 0 0 5px rgba(230, 194, 0, 0.2);
+			}
+			100% {
+				text-shadow: 0 0 15px rgba(230, 194, 0, 0.8), 0 0 25px rgba(230, 194, 0, 0.4);
+			}
+		}
+
+		a, button {
+			transition: all 0.3s ease;
+		}
+
+		/* Float elements */
+		.demo-badge {
+			position: fixed;
+			top: 60px;
+			right: -40px;
+			background-color: #e62a2a;
+			color: white;
+			padding: 5px 40px;
+			font-weight: 800;
+			font-size: 0.75rem;
+			transform: rotate(45deg);
+			z-index: 9999;
+			box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+			letter-spacing: 2px;
+			font-family: 'Times New Roman', Times, serif;
+		}
+
+		.whatsapp-float {
+			position: fixed;
+			bottom: 30px;
+			right: 30px;
+			z-index: 1000;
+		}
+
+		.whatsapp-cta {
+			display: inline-block;
+			background: var(--acento);
+			color: #000;
+			padding: 14px 28px;
+			border-radius: 4px;
+			font-weight: 800;
+			letter-spacing: 1px;
+			text-decoration: none;
+			box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+			font-family: 'Times New Roman', Times, serif;
+		}
+
+		.whatsapp-cta:hover {
+			background: var(--acento-hover);
+			transform: translateY(-3px);
+		}
+
+		@media (max-width: 768px) {
+			.whatsapp-float span {
+				display: none;
+			}
+			.whatsapp-float {
+				padding: 15px;
+				bottom: 20px;
+				right: 20px;
+			}
+		}
+	</style>
+</html>

@@ -1,0 +1,353 @@
+---
+import video1 from '../assets/video/video1.mp4';
+import video2 from '../assets/video/video2.mp4';
+import video3 from '../assets/video/video3.mp4';
+
+const imagenes = [
+  { img: "https://images.unsplash.com/photo-1593702295094-aea22597af65?q=80&w=800", video: video1 },
+  { img: "https://upliftprovisionsco.com/cdn/shop/articles/barberpic.jpg?v=1611937989", video: video2 },
+  { img: "https://img.freepik.com/fotos-premium/barbero-joven-barbero-cortando-cabello-su-cliente-masculino_7502-6004.jpg", video: video3 }
+];
+---
+<section id="galeria">
+  <div class="container">
+    <h2 class="titulo-seccion">El <span>Resultado</span></h2>
+    <div class="galeria-grid">
+      {imagenes.map((item, index) => (
+        <div class="galeria-item" data-index={index}>
+          <div class="galeria-overlay">
+            <span>Ver Trabajo</span>
+          </div>
+          <img src={item.img} alt={`Trabajo de barbería número ${index + 1}`} loading="lazy"/>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Modal para image/video -->
+<div id="galeria-modal" class="galeria-modal" aria-hidden="true">
+  <div class="galeria-modal-backdrop"></div>
+  <div class="galeria-modal-content">
+    <button class="galeria-modal-close" aria-label="Cerrar">✕</button>
+    <div class="galeria-modal-body">
+      <!-- Aquí se inserta img o video -->
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ imagenes }} data-astro-rerun-on-nav>
+  const initGaleria = () => {
+    const modal = document.getElementById('galeria-modal');
+    const modalBody = modal.querySelector('.galeria-modal-body');
+    const modalClose = modal.querySelector('.galeria-modal-close');
+    const items = document.querySelectorAll('.galeria-item');
+
+    // Limpiar listeners anteriores
+    items.forEach((item, index) => {
+      item.onclick = null;
+      item.removeEventListener('click', null);
+    });
+    modalClose.onclick = null;
+
+    items.forEach((item, index) => {
+      item.addEventListener('click', () => {
+        const data = imagenes[index];
+        modalBody.innerHTML = '';
+        
+        if (data.video) {
+          const video = document.createElement('video');
+          video.src = data.video;
+          video.controls = true;
+          video.setAttribute('playsinline', '');
+          video.style.maxWidth = '100%';
+          video.style.maxHeight = '100%';
+          video.style.height = 'auto';
+          video.style.display = 'block';
+          modalBody.appendChild(video);
+        } else {
+          const img = document.createElement('img');
+          img.src = data.img;
+          img.alt = `Trabajo número ${index + 1}`;
+          img.style.maxWidth = '100%';
+          img.style.maxHeight = '100%';
+          img.style.height = 'auto';
+          img.style.display = 'block';
+          modalBody.appendChild(img);
+        }
+        
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    const closeModal = () => {
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = 'auto';
+    };
+
+    modalClose.addEventListener('click', closeModal);
+    modalClose.addEventListener('touchend', closeModal);
+
+    modal.querySelector('.galeria-modal-backdrop').addEventListener('click', closeModal);
+    modal.querySelector('.galeria-modal-backdrop').addEventListener('touchend', closeModal);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = 'auto';
+      }
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGaleria);
+  } else {
+    initGaleria();
+  }
+
+  document.addEventListener('astro:after-swap', initGaleria);
+</script>
+
+<style>
+  #galeria {
+    background-color: var(--bg-secundario);
+  }
+  .galeria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .galeria-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    height: 350px;
+    cursor: pointer;
+  }
+  .galeria-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(230, 194, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 2;
+  }
+  .galeria-overlay span {
+    color: #000;
+    font-weight: 700;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    transform: translateY(20px);
+    transition: transform 0.4s ease;
+  }
+  .galeria-item:hover .galeria-overlay {
+    opacity: 1;
+  }
+  .galeria-item:hover .galeria-overlay span {
+    transform: translateY(0);
+  }
+  .galeria-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+  }
+  .galeria-item:hover img {
+    transform: scale(1.1);
+  }
+
+/* Modal styles - Responsive */
+.galeria-modal { 
+  position: fixed; 
+  inset: 0; 
+  display: none; 
+  align-items: center; 
+  justify-content: center; 
+  z-index: 9999;
+  padding: 1rem;
+}
+.galeria-modal[aria-hidden="false"] { 
+  display: flex; 
+}
+.galeria-modal-backdrop { 
+  position: absolute; 
+  inset: 0; 
+  background: rgba(0,0,0,0.9);
+}
+.galeria-modal-content { 
+  position: relative; 
+  width: min(1000px, 95vw); 
+  height: min(90vh, 90vw);
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+  border-radius: 8px;
+  background: #111;
+}
+.galeria-modal-body {
+  padding: 2rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+.galeria-modal-body img, 
+.galeria-modal-body video { 
+  width: 100%; 
+  height: auto; 
+  display: block; 
+  border-radius: 6px;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  aspect-ratio: auto;
+}
+
+
+/* Tablet landscape y más */
+@media (min-width: 1024px) {
+  .galeria-modal-body img,
+  .galeria-modal-body video {
+    max-height: 75vh;
+  }
+}
+
+/* Tablet portrait */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .galeria-modal-body img,
+  .galeria-modal-body video {
+    max-height: 70vh;
+  }
+}
+
+.galeria-modal-close { 
+  position: absolute; 
+  right: 12px; 
+  top: 12px; 
+  background: var(--acento); 
+  border: none; 
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%; 
+  font-weight: 700; 
+  font-size: 1.2rem;
+  cursor: pointer;  
+  color: #000;
+  transition: all 0.2s ease;
+  z-index: 10;
+  touch-action: manipulation;
+}
+.galeria-modal-close:hover {
+  background: var(--acento-hover);
+  transform: rotate(90deg);
+}
+.galeria-modal-close:focus {
+  outline: 2px solid rgba(230,194,0,0.85);
+  outline-offset: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .galeria-modal {
+    padding: 0.5rem;
+  }
+  .galeria-modal-content {
+    width: 100%;
+    height: auto;
+    max-height: 95vh;
+  }
+  .galeria-modal-body {
+    padding: 1rem;
+    max-height: calc(95vh - 60px);
+  }
+}
+
+@media (max-width: 768px) {
+  .galeria-modal {
+    padding: 0;
+  }
+  .galeria-modal-content {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    border-radius: 0;
+  }
+  .galeria-modal-body {
+    padding: 0.75rem;
+    max-height: calc(100vh - 60px);
+  }
+  .galeria-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .galeria-item {
+    height: 280px;
+  }
+}
+
+@media (max-width: 600px) {
+  .galeria-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  .galeria-item {
+    height: 250px;
+  }
+  .galeria-modal-body {
+    padding: 0.5rem;
+    max-height: calc(100vh - 50px);
+  }
+  .galeria-modal-close {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .galeria-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .galeria-item {
+    height: 220px;
+  }
+  .galeria-modal {
+    padding: 0;
+  }
+  .galeria-modal-content {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+  }
+  .galeria-modal-body {
+    padding: 0;
+    max-height: calc(100vh - 40px);
+  }
+  .galeria-modal-body video,
+  .galeria-modal-body img {
+    border-radius: 0;
+  }
+  .galeria-modal-close {
+    width: 44px;
+    height: 44px;
+    font-size: 1rem;
+    right: 8px;
+    top: 8px;
+  }
+  .galeria-modal-close::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+}
+</style>

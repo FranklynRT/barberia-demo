@@ -1,0 +1,431 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/navbar.astro";
+import Footer from "../components/footer.astro";
+import FAQ from "../components/faq.astro";
+
+const WHATSAPP_NUMBER = "18091234567"; // <-- Cambia por tu número real (sin + ni espacios)
+
+const serviciosDetallados = [
+    {
+        nombre: "Corte Tradicional",
+        precio: "s/15.00",
+        tiempo: "30 min",
+        desc: "Lavado, corte a tijera o máquina y acabado con producto premium.",
+    },
+    {
+        nombre: "Perfilado de Barba",
+        precio: "s/10.00",
+        tiempo: "25 min",
+        desc: "Diseño de barba con navaja libre, toalla caliente y aceites hidratantes.",
+    },
+    {
+        nombre: "Combo Clásico",
+        precio: "s/22.00",
+        tiempo: "50 min",
+        desc: "Nuestro servicio estrella. Tratamiento completo para cabello y barba.",
+    },
+    {
+        nombre: "Corte Infantil",
+        precio: "s/12.00",
+        tiempo: "25 min",
+        desc: "Estilo y paciencia para los más pequeños de la casa (menores de 12).",
+    },
+    {
+        nombre: "Corte VIP + Masaje Facial",
+        precio: "s/35.00",
+        tiempo: "60 min",
+        desc: "La experiencia definitiva. Corte detallado, diseño de barba, y masaje facial relajante.",
+    },
+    {
+        nombre: "Tinte / Camuflaje de Canas",
+        precio: "s/25.00",
+        tiempo: "40 min",
+        desc: "Coloración sutil para un aspecto más juvenil pero natural.",
+    },
+].map((s) => ({
+    ...s,
+    waLink: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+        `¡Hola! Me gustaría agendar una cita:\n\n✂️ ${s.nombre}\n💰 Precio: ${s.precio}\n\n¿Tienen disponibilidad?`
+    )}`,
+}));
+---
+
+<Layout title="Servicios | DEMO The Barber Shop">
+    <Navbar />
+    <main class="page-container">
+        <section class="servicios-hero relative overflow-hidden">
+            <div
+                class="absolute inset-0 bg-gradient-to-b from-[var(--acento)]/10 to-transparent pointer-events-none"
+            >
+            </div>
+            <div class="container relative z-10">
+                <h1 class="page-title">Nuestros <span>Servicios</span></h1>
+                <p class="text-xl font-sans text-gray-300">
+                    Descubre todo lo que ofrecemos en nuestra DEMO.
+                </p>
+            </div>
+        </section>
+
+        <section class="servicios-seccion">
+            <div class="container mx-auto px-4">
+                <div class="servicios-grid">
+                    {
+                        serviciosDetallados.map((item) => (
+                            <div class="servicio-card">
+                                <div class="servicio-header">
+                                    <h3>{item.nombre}</h3>
+                                    <span class="precio">{item.precio}</span>
+                                </div>
+                                <span class="tiempo">
+                                    TIEMPO ESTIMADO: {item.tiempo}
+                                </span>
+                                <p class="desc">{item.desc}</p>
+                                <div class="servicio-footer">
+                                    <button
+                                        class="btn-reservar"
+                                        type="button"
+                                        onclick={"window.open('" + item.waLink + "', '_blank')"}
+                                    >
+                                        📲 Agendar Ahora
+                                    </button>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+        </section>
+
+        <section class="local-section">
+            <div class="container">
+                <h2 class="titulo-seccion">VISÍTANOS EN <span>NUESTRO LOCAL</span></h2>
+
+                <div class="local-grid">
+                    <!-- Información -->
+                    <div class="local-info">
+                        <div class="local-item">
+                            <div class="local-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3>DIRECCIÓN</h3>
+                                <p>Calle Principal #123, Zona<br/>Centro Ciudad, País</p>
+                            </div>
+                        </div>
+
+                        <div class="local-item">
+                            <div class="local-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12 6 12 12 16 14"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3>HORARIO</h3>
+                                <p>Lun–Vie: <strong>8:00 AM – 8:00 PM</strong><br/>Sáb: <strong>8:00 AM – 6:00 PM</strong></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mapa -->
+                    <div class="local-mapa">
+                        <div class="mapa-badge">UBICACIÓN</div>
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=TU_EMBED_AQUI" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <Footer />
+</Layout>
+
+
+
+<style>
+    .page-container {
+        padding-top: 80px;
+    }
+    .servicios-hero {
+        background-color: var(--bg-secundario);
+        text-align: center;
+        padding: 6rem 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .page-title {
+        font-size: 3.5rem;
+        font-family: "Times New Roman", Times, serif;
+        font-weight: 800;
+        margin-bottom: 1rem;
+    }
+    .page-title span {
+        color: var(--acento);
+    }
+    .servicios-seccion {
+        background-color: var(--bg-principal);
+    }
+    .servicios-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2.5rem;
+        align-items: start;
+    }
+    .servicio-card {
+        background-color: var(--bg-secundario);
+        padding: 2.5rem;
+        border-radius: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: 380px;
+    }
+    .servicio-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 100%;
+        background-color: var(--acento);
+        transition: width 0.3s ease;
+    }
+    .servicio-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--border-color);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    }
+    .servicio-card:hover::before {
+        width: 100%;
+        opacity: 0.05;
+    }
+    .servicio-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding-bottom: 1rem;
+    }
+    .servicio-header h3 {
+        font-size: 1.4rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+    .precio {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--acento);
+        font-family: "Times New Roman", Times, serif;
+    }
+    .tiempo {
+        font-size: 0.75rem;
+        color: var(--acento);
+        display: block;
+        margin-bottom: 1rem;
+        letter-spacing: 2px;
+    }
+    .desc {
+        color: var(--texto-mutado);
+        font-size: 1rem;
+        line-height: 1.6;
+        font-weight: 300;
+        flex-grow: 1;
+        margin-bottom: 2rem;
+    }
+    .servicio-footer {
+        margin-top: auto;
+        display: flex;
+        justify-content: center;
+    }
+    .btn-reservar {
+        display: inline-block;
+        text-align: center;
+        background-color: var(--acento);
+        color: #000;
+        border: none;
+        padding: 0.9rem 1.6rem;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        font-weight: 800;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        letter-spacing: 1px;
+    }
+    .servicio-card:hover .btn-reservar {
+        background-color: var(--acento-hover);
+        transform: translateY(-2px);
+        color: #000;
+    }
+
+    /* Estilos para CTA en hero */
+    .whatsapp-hero-cta {
+        background: var(--acento);
+        color: #000;
+        padding: 0.9rem 1.6rem;
+        border-radius: 4px;
+        font-weight: 800;
+        border: none;
+        cursor: pointer;
+        letter-spacing: 1px;
+        font-family: 'Times New Roman', Times, serif;
+    }
+    .whatsapp-hero-cta:hover { background: var(--acento-hover); }
+
+    /* === SECCIÓN LOCAL === */
+    .local-section {
+        background: linear-gradient(180deg, #0a0a0a 0%, #111111 100%);
+        padding: 8rem 1rem 7rem;
+        position: relative;
+        overflow: visible;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .titulo-seccion {
+        text-align: center;
+        font-size: 4.5rem;
+        font-weight: 900;
+        line-height: 1.05;
+        margin-bottom: 4.5rem;
+        color: #ffffff;
+        text-transform: uppercase;
+        letter-spacing: -3px;
+        text-shadow: 0 0 45px rgba(230, 194, 0, 0.7);
+    }
+
+    .titulo-seccion span {
+        color: #e6c200;
+    }
+
+    .local-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.35fr;
+        gap: 4rem;
+        align-items: start;
+    }
+
+    .local-info {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .local-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1.5rem;
+        padding: 1.8rem;
+        background: #161616;
+        border: 1px solid rgba(255,255,255,0.08);
+        border-left: 5px solid #e6c200;
+        border-radius: 12px;
+    }
+
+    .local-icon {
+        flex-shrink: 0;
+        width: 56px;
+        height: 56px;
+        background: rgba(230, 194, 0, 0.12);
+        border: 2px solid rgba(230, 194, 0, 0.4);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #e6c200;
+    }
+
+    .local-item h3 {
+        font-family: 'Times New Roman', serif;
+        font-size: 0.85rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #e6c200;
+        margin: 0 0 10px 0;
+    }
+
+    .local-item p {
+        color: #ddd;
+        line-height: 1.5;
+    }
+
+    /* === CORRECCIÓN PARA EL MAPA === */
+
+.local-mapa {
+    position: relative;
+    width: 100%;
+    /* Cambia esto a una altura más razonable, por ejemplo 400px o 450px */
+    height: 400px; 
+    border-radius: 16px;
+    overflow: hidden; /* Cambiado a hidden para que el mapa no se salga del borde */
+    border: 1px solid rgba(230,194,0,0.35);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.85);
+}
+
+.local-mapa iframe {
+    width: 100%;
+    /* Cambia esto a 100% para que ocupe todo el contenedor que acabamos de reducir */
+    height: 100%; 
+    border: none;
+}
+
+/* Elimina o ajusta estos Media Queries que hacen que el mapa se vuelva gigante en pantallas grandes */
+@media (min-width: 769px) {
+    .local-mapa {
+        height: 450px; /* Ajustado de 900px a 450px */
+    }
+}
+
+@media (min-width: 1200px) {
+    .local-mapa {
+        height: 450px; /* Ajustado de 950px a 450px */
+    }
+}
+    .mapa-badge {
+        position: absolute;
+        top: 25px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0,0,0,0.92);
+        color: #e6c200;
+        font-family: 'Times New Roman', serif;
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 3px;
+        padding: 10px 28px;
+        border-radius: 30px;
+        border: 1px solid rgba(230,194,0,0.5);
+        z-index: 10;
+    }
+
+    @media (max-width: 768px) {
+        .titulo-seccion { font-size: 3.3rem; }
+        .container { padding: 0 1rem; }
+        .local-grid { 
+            grid-template-columns: 1fr; 
+            gap: 2.5rem;
+        }
+        .local-mapa {
+            height: 500px;
+        }
+    }
+</style>

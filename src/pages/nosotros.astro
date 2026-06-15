@@ -1,0 +1,163 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/navbar.astro';
+import Footer from '../components/footer.astro';
+---
+
+<Layout title="Nosotros | DEMO The Barber Shop">
+	<Navbar />
+	<main class="page-container">
+        <section class="nosotros-hero">
+            <div class="container">
+                <h1 class="page-title">Sobre <span>Nosotros</span></h1>
+                <p>Conoce la historia detrás de nuestra tradición (DEMO).</p>
+            </div>
+        </section>
+
+        <section class="py-16 bg-[#0a0a0a] border-y border-[var(--acento)]/20 shadow-[0_0_50px_rgba(230,194,0,0.05)]">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div class="p-6 transition-transform hover:-translate-y-2 duration-300">
+                        <div class="text-4xl md:text-5xl font-serif text-[var(--acento)] mb-2 drop-shadow-[0_0_10px_rgba(230,194,0,0.5)]">+5k</div>
+                        <div class="text-gray-400 font-sans tracking-widest text-sm uppercase">Clientes Felices</div>
+                    </div>
+                    <div class="p-6 transition-transform hover:-translate-y-2 duration-300">
+                        <div class="text-4xl md:text-5xl font-serif text-[var(--acento)] mb-2 drop-shadow-[0_0_10px_rgba(230,194,0,0.5)]">12</div>
+                        <div class="text-gray-400 font-sans tracking-widest text-sm uppercase">Años de Lujo</div>
+                    </div>
+                    <div class="p-6 transition-transform hover:-translate-y-2 duration-300">
+                        <div class="text-4xl md:text-5xl font-serif text-[var(--acento)] mb-2 drop-shadow-[0_0_10px_rgba(230,194,0,0.5)]">4</div>
+                        <div class="text-gray-400 font-sans tracking-widest text-sm uppercase">Sedes Exclusivas</div>
+                    </div>
+                    <div class="p-6 transition-transform hover:-translate-y-2 duration-300">
+                        <div class="text-4xl md:text-5xl font-serif text-[var(--acento)] mb-2 drop-shadow-[0_0_10px_rgba(230,194,0,0.5)]">15</div>
+                        <div class="text-gray-400 font-sans tracking-widest text-sm uppercase">Barberos VIP</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="historia">
+            <div class="container historia-grid">
+                <div class="historia-texto">
+                    <h2>Más de 10 años de <span>Experiencia</span></h2>
+                    <p>En The Barber Shop no solo cortamos cabello, creamos un estilo de vida. Fundada en 2012, nuestra misión ha sido siempre ofrecer un espacio donde el cuidado masculino sea una experiencia de lujo y relajación.</p>
+                    <p>Contamos con profesionales altamente capacitados que dominan desde los cortes más clásicos hasta las tendencias modernas urbanas. Todo esto en un ambiente diseñado especialmente para tu comodidad.</p>
+                </div>
+                <div class="historia-img">
+                    <img src="https://images.unsplash.com/photo-1520630560410-6c9ab4cbfa43?q=80&w=800&auto=format&fit=crop" alt="Interior de la Barbería" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <section class="equipo">
+            <div class="container">
+                <h2 class="titulo-seccion">Nuestro <span>Equipo</span></h2>
+                <div class="equipo-grid">
+                    <div class="equipo-card">
+                        <img src="https://images.unsplash.com/photo-1618077360395-f3068be8e001?q=80&w=500&auto=format&fit=crop" alt="Barbero" loading="lazy">
+                        <h3>Carlos "El Maestro"</h3>
+                        <p>Especialista en cortes clásicos</p>
+                    </div>
+                    <div class="equipo-card">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=500&auto=format&fit=crop" alt="Barbero" loading="lazy">
+                        <h3>Miguel Ángel</h3>
+                        <p>Experto en perfilado de barba</p>
+                    </div>
+                    <div class="equipo-card">
+                        <img src="https://img.freepik.com/fotos-premium/tipo-barberia-camiseta-negra-sentado-silla-sosteniendo-cortador-pelo-peluqueria_338491-25897.jpg" alt="Barbero" loading="lazy">
+                        <h3>Javier</h3>
+                        <p>Estilos urbanos y modernos</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+	</main>
+	<Footer />
+</Layout>
+
+<style>
+    .page-container {
+        padding-top: 80px; /* Espacio para el navbar fijo */
+    }
+    .nosotros-hero {
+        background-color: var(--bg-secundario);
+        text-align: center;
+        padding: 6rem 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .page-title {
+        font-size: 3.5rem;
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: 800;
+        margin-bottom: 1rem;
+    }
+    .page-title span {
+        color: var(--acento);
+    }
+    .historia-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+    }
+    .historia-texto h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+    }
+    .historia-texto h2 span {
+        color: var(--acento);
+    }
+    .historia-texto p {
+        color: var(--texto-mutado);
+        margin-bottom: 1rem;
+        line-height: 1.8;
+        font-size: 1.1rem;
+    }
+    .historia-img img {
+        width: 100%;
+        border-radius: 4px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .equipo {
+        background-color: var(--bg-secundario);
+    }
+    .equipo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2.5rem;
+    }
+    .equipo-card {
+        background-color: var(--bg-principal);
+        padding: 1.5rem;
+        border-radius: 4px;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: transform 0.3s ease;
+    }
+    .equipo-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--border-color);
+    }
+    .equipo-card img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 0 auto 1.5rem auto;
+        border: 3px solid var(--acento);
+    }
+    .equipo-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+    }
+    .equipo-card p {
+        color: var(--texto-mutado);
+        font-size: 0.95rem;
+    }
+    @media (max-width: 768px) {
+        .historia-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
